@@ -1,4 +1,5 @@
-import "../styles/globals.css"
+import "@styles/globals.css"
+import Home from "./page";
 
 export const metadata = {
     title :'Prompts',
@@ -6,7 +7,7 @@ export const metadata = {
 };
 
 
-const RootLayout = () => {
+const RootLayout = ({children}) => {
   return (
   <html lang="en">
     <body>
@@ -14,7 +15,7 @@ const RootLayout = () => {
             <div className="gradient"/>
         </div>
         <main>
-            {children}
+          {children}
         </main>
     </body>
   </html>
