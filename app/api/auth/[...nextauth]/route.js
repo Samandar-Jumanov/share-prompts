@@ -18,11 +18,10 @@ const handler = NextAuth({
 
       return session
     },
+
     async signIn({ account, profile, user, credentials }) {
       try {
         await connectDb()
-
-      
         const userExists = await User.findOne({ email: profile.email })
 
         

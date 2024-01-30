@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "autoprefixer": "10.4.17",
+    "axios": "^1.6.7",
     "bcrypt": "^5.1.1",
     "mongodb": "^6.3.0",
     "mongoose": "^8.1.1",
