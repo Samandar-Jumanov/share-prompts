@@ -1,8 +1,94 @@
+"use client"
+
 import React from 'react'
+import Link from 'next/link';
+import Image from 'next/image';
+import { useState , useEffect } from 'react';
+import { signIn , useSession , getProviders , signOut } from 'next-auth/react';
 
 const Nav = () => {
+    const isUserLoggedIn = true;
+    const [providers , setProviders] = useState(null);
+
+    useEffect(() => {
+        const setProvider = async () =>{
+            const response = await getProviders()
+            setProviders(response)
+        }
+        setProvider()
+    }, []);
+
   return (
-    <div>Nav</div>
+   <nav className='flex-between  w-full mb-16 pt-3'>
+    <Link  
+    href="/" 
+    className='flex gap-2 flex-center'>
+    <Image 
+     src='/assets/images/logo.svg'
+      width={30}
+      height={30}
+      alt='Prompropia logo'
+      className='object-contain' 
+    
+    />
+     <p  className='logo_text'> Promptopia </p>
+    </Link>
+
+    {/* Desktop  Navigation */}
+
+    <div className="sm:flex hidden">
+        {isUserLoggedIn ? 
+         <div className='flex gap-3 md:gap-5'> 
+           <Link 
+             href="/create-prompt"
+             className='black_btn'>
+              Create post 
+           </Link>
+
+           <button 
+           className='outline_btn' 
+           onClick={signOut}  
+           type='button'
+           >
+              Sign out
+           </button>
+         
+         <Link href='/profile'>
+
+         <Image
+           width={37}
+           height={37}
+           src='/assets/images/logo.svg'
+           className='rounded-full'
+           alt='profile'
+         />
+
+         </Link>
+         </div>
+
+         :
+
+         <>
+            {providers && Object.values(providers).map(( provider) =>(
+                <button 
+                key={provider.name}
+                className='black_btn'
+                onClick={() => signIn(provider.id)}
+                type='button'
+                >
+                    Sign in 
+                </button>
+            ))}
+         </>
+        }
+
+    </div>
+
+
+    {/* Mobile Navigation  */}
+
+    
+   </nav>
   )
 }
 
