@@ -61,7 +61,7 @@ const Nav = () => {
          <Image
            width={37}
            height={37}
-           src='/assets/images/logo.svg'
+           src={session?.user.image}
            className='rounded-full'
            alt='profile'
          />
@@ -97,7 +97,7 @@ const Nav = () => {
      <Image
            width={37}
            height={37}
-           src='/assets/images/logo.svg'
+           src={session?.user.image}
            className='rounded-full'
            alt='profile'
            onClick={()=>setToggleDropDown(prev => !prev)}

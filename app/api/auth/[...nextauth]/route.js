@@ -12,37 +12,40 @@ const handler = NextAuth({
          })
      ],
 
-     async session ({session}){
-          const sessionUser = await User.findOne({
-                email : session.user.email
-          });
-            session.user.id =  sessionUser._id.toString();
-
-            return session;
-     },
-    
-     async signIn({ profile }){
-         try {
-             await connectDb();
-             const user = await User.findOne({email: profile.email});
-
-             if(user){
-                return user;
-             };
-
-             const newUser = await User.create({
-                 name: profile.name.replace(" " , '').toLowerCase(),
+     callbacks : {
+        async session({ session }) {
+           const sessionUser = await User.findOne({
+              email: session.user.email
+           });
+           session.user.id = sessionUser._id.toString();
+           return session;
+        },
+     
+        async signIn({ profile }) {
+           try {
+              await connectDb();
+              const user = await User.findOne({ email: profile.email });
+     
+              if (user) {
+                 return user;
+              }
+     
+              const newUser = await User.create({
+                 name: profile.name.replace(" ", "").toLowerCase(),
                  email: profile.email,
-                 image: profile.image,
-             })
-
-
-         } catch (error) {
-          
-         }
+                 image: profile.image
+              });
+     
+              return newUser;
+           } catch (error) {
+              // Handle error
+              console.error(error);
+           }
+        }
      }
+     
+});
 
-})
 
 
 
