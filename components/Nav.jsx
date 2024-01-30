@@ -9,6 +9,7 @@ import { signIn , useSession , getProviders , signOut } from 'next-auth/react';
 const Nav = () => {
     const isUserLoggedIn = true;
     const [providers , setProviders] = useState(null);
+    const [toggleDropDown , setToggleDropDown] = useState(false);
 
     useEffect(() => {
         const setProvider = async () =>{
@@ -87,7 +88,72 @@ const Nav = () => {
 
     {/* Mobile Navigation  */}
 
-    
+    <div className="sm:hidden flex relative">
+
+{  isUserLoggedIn ?
+ <div className='flex'> 
+     <Image
+           width={37}
+           height={37}
+           src='/assets/images/logo.svg'
+           className='rounded-full'
+           alt='profile'
+           onClick={()=>setToggleDropDown(prev => !prev)}
+         />
+
+         {toggleDropDown && <div className='dropdown'>
+
+         <button 
+              href="/profile"
+              className='dropdown_link'
+              onClick={() => setToggleDropDown(false)}
+            >
+
+                My profile
+            </button>
+
+            <Link 
+              href="/profile"
+              className='dropdown_link'
+              onClick={() => setToggleDropDown(false)}
+            >
+
+                Create prompt
+            </Link>
+
+            <button 
+              href="/profile"
+              className='mt-5 w-full black_btn'
+              onClick={() => {
+                  setToggleDropDown(false)
+                  signOut();
+              }}
+            >
+               Sign out 
+            </button>
+            </div>
+            
+        }
+
+</div>
+: 
+<>
+            {providers && Object.values(providers).map(( provider) =>(
+                <button 
+                key={provider.name}
+                className='black_btn'
+                onClick={() => signIn(provider.id)}
+                type='button'
+                >
+                    Sign in 
+                </button>
+            ))}
+         </>
+
+}
+    </div>
+
+
    </nav>
   )
 }
