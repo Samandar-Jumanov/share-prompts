@@ -7,17 +7,17 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 
 const CreatePrompt = () => {
+  // const router = useRouter();
   const [submitting , setSubmitting ] = useState(false);
   const [post , setPost ] = useState();
   const { data : session} = useSession();
-  const router = useRouter();
 
   const createPost = async  (e) =>{
     e.preventDefault();
     setSubmitting(true);
       try {
-        const res = await axios.post('/api/prompts', {
-          propmt : post?.propmt,
+        const res = await axios.post('/api/prompts/new', {
+          prompt : post?.prompt,
           tag : post?.tag,
           userId : session?.user.id
         });
@@ -26,9 +26,10 @@ const CreatePrompt = () => {
              setSubmitting(false);
              setPost(null);
              router.push('/');
+             console.log(res.data);
         };
 
-        router.push('/');
+        // router.push('/');
       } catch (error) {
         console.log(error?.message)
       } finally{
