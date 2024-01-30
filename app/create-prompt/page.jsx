@@ -9,7 +9,8 @@ import axios from 'axios';
 const CreatePrompt = () => {
   const [submitting , setSubmitting ] = useState(false);
   const [post , setPost ] = useState();
-
+  const { data : session} = useSession();
+  const router = useRouter();
 
   const createPost = async  (e) =>{
     e.preventDefault();
@@ -26,7 +27,7 @@ const CreatePrompt = () => {
              setPost(null);
              router.push('/');
         };
-        
+
         router.push('/');
       } catch (error) {
         console.log(error?.message)
@@ -44,6 +45,7 @@ const CreatePrompt = () => {
        submitting={submitting}
        handleCreatePost={createPost}
       />
+
        </div>
   )
 
