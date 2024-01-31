@@ -26,11 +26,11 @@ const MyProfile =  () =>{
   } , []);
 
 
-    const handleEdit = () =>{
-
+    const handleEdit = (post) =>{
+        router.push(`/update-prompt?id=${post.id}`);
     };
 
-    const handleDelete = () =>{
+    const handleDelete = (post) =>{
 
     };
 
@@ -40,8 +40,8 @@ const MyProfile =  () =>{
               name="My"
               desc ="Welcome to your personolized profile"
               data = {userPosts}
-              handleEdit
-              handleDelete
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
            />
     )
 }
