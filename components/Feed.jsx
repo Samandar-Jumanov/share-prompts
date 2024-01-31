@@ -43,7 +43,7 @@ const Feed = () => {
 
         <PromptList
            data={prompts}
-           handleOnclick={() => {}}
+           handlTagClick={() => {}}
         />
 
     </section>
@@ -55,14 +55,14 @@ export default Feed
 
 import PromptCard from './PromptCard'
 
-export function PromptList({ data, handleOnclick }) {
+export function PromptList({ data, handlTagClick }) {
   return (
     <div className='mt-16 prompt_layout'>
       {data.map((each) => (
         <PromptCard
           key={each._id}
           post={each}
-          handleOnclick={handleOnclick}
+          handlTagClick={handlTagClick}
         />
       ))}
     </div>
