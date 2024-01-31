@@ -14,10 +14,15 @@ const Feed = () => {
 
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/prompts')
-      .then(res => res.json())
-      .then(prompts => setPrompts(prompts));
-      
+     
+    const fetchPrompts = async () =>{
+      const response = await  fetch('api/prompts')
+      const data = await response.json();
+      setPrompts(data);
+      console.log(data)
+    }
+    fetchPrompts();
+
   }, []);
 
 
@@ -40,6 +45,7 @@ const Feed = () => {
            data={prompts}
            handleOnclick={() => {}}
         />
+
     </section>
   )
 }
@@ -47,21 +53,18 @@ const Feed = () => {
 export default Feed
 
 
-
 import PromptCard from './PromptCard'
 
-
-function PromptList( { data , handleOnclick}){
-   
+export function PromptList({ data, handleOnclick }) {
   return (
     <div className='mt-16 prompt_layout'>
-           {data.map((each) =>{
-                <PromptCard
-                  key={each._id}
-                  post={each}
-                  handleOnclick={handleOnclick}
-                />
-           })}
+      {data.map((each) => (
+        <PromptCard
+          key={each._id}
+          post={each}
+          handleOnclick={handleOnclick}
+        />
+      ))}
     </div>
   )
 }
