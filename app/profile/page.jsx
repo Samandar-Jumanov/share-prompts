@@ -28,11 +28,11 @@ const MyProfile =  () =>{
 
     const handleEdit = (post) =>{
         router.push(`/update-prompt?id=${post._id}`);
-        console.log(post)
+        console.log({postId : post._id})
     };
 
     const handleDelete = (post) =>{
-
+        
     };
 
     return(
