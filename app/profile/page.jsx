@@ -27,7 +27,7 @@ const MyProfile =  () =>{
 
 
     const handleEdit = (post) =>{
-        router.push(`/update-prompt?id=${post._id}`);
+        // router.push(`/update-prompt?id=${post._id}`);
         console.log({postId : post._id})
     };
 

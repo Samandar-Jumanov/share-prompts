@@ -4,6 +4,7 @@ import React from 'react'
 import PromptCard from './PromptCard'
 
 const Profile = ({ name , data, desc , handleEdit , handleDelete}) => {
+
   return (
     <section className='w-full'>
        <h1 className='head_text text-left'>
@@ -16,8 +17,6 @@ const Profile = ({ name , data, desc , handleEdit , handleDelete}) => {
           <PromptCard
               key={each._id}
               post={each}
-              handleDelete={handleDelete && handleDelete(each)}
-              handleEdit={handleEdit && handleEdit(each)}
           />
       ))}
     </div>

@@ -4,11 +4,16 @@ import Image from 'next/image';
 import { usePathname , useRouter  } from 'next/navigation'
 import { useSession } from 'next-auth/react';
 
-const PromptCard = ( { post , handlTagClick, handleEdit , handleDelete }) => {
+const PromptCard = ( { post , handlTagClick, }) => {
+  const router = useRouter();
     const [ isCopied , setIsCopied ] = useState(false);
     const pathName = usePathname();
     const { data : session } = useSession();
 
+    const deletePost = () =>{
+         
+    }
+   
     const handleCopy = () =>{
         navigator.clipboard.writeText(post.prompt);
         setIsCopied(true);
@@ -52,7 +57,10 @@ const PromptCard = ( { post , handlTagClick, handleEdit , handleDelete }) => {
         <div className='mt-5 flex-center gap-4 border-t border-gray-100 pt-3'>
           <p
             className='font-inter text-sm green_gradient cursor-pointer'
-            onClick={handleEdit}
+            onClick={() =>{
+                    router.push(`/update-prompt?id=${post._id}`)
+    
+            }}
           >
             Edit
           </p>
