@@ -1,11 +1,11 @@
 import Prompt from "@models/Prompt";
-import  connectToDb from "@utils/connectMongo";
+import connectToDb  from "@utils/connectMongo";
 
 export const POST = async (request) => {
     const { userId, prompt, tag } = await request.json();
 
     try {
-        await connectToDb();
+        await connectToDB();
         const newPrompt = new Prompt({ creator: userId, prompt, tag });
 
         await newPrompt.save();
@@ -13,5 +13,4 @@ export const POST = async (request) => {
     } catch (error) {
         return new Response("Failed to create a new prompt", { status: 500 });
     }
-};
-
+}

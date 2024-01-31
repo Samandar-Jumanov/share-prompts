@@ -18,7 +18,7 @@ const CreatePrompt = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("/api/prompts/new", {
+      const response = await fetch("/api/prompt/new", {
         method: "POST",
         body: JSON.stringify({
           prompt: post.prompt,
@@ -48,4 +48,4 @@ const CreatePrompt = () => {
   );
 };
 
-export default CreatePrompt
+export default CreatePrompt;
