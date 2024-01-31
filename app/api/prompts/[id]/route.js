@@ -6,22 +6,24 @@ export const GET =  async (request , { params }) =>{
      try {
       await connectDb();
 
-        const prompt = await Prompt.findById(params.id);
+        const prompt = await Prompt.findById(params.id)
         return new Response(JSON.stringify(prompt) , { status : 200})
      } catch (error) {
-           return new Response( "Failed to get prompt", { status : 400})
+            console.log(error.stack)
+           return new Response( "Failed to get prompt", { status : 500})
      }
-}
+};
+
 
 export const PATCH = async (request , { params}) =>{
     const {  prompt , tag } = request.json();
    try{
       await connectDb();
-     const prompt = await Prompt.findById(params.id);
-     if(!prompt)  return new Response("Cannot find prompt" ,{status : 500});
-     prompt.tag = tag;
-     prompt.prompt = prompt;
-     await prompt.save();
+     const existingPrompt = await Prompt.findById(params.id);
+     if(!existingPrompt)  return new Response("Cannot find prompt" ,{status : 500});
+     existingPrompt.tag = tag;
+     existingPrompt.prompt = prompt;
+     await existingPrompt.save();
 
       return new Response(JSON.stringify(prompt) , { status : 200})
      } catch (error) {
