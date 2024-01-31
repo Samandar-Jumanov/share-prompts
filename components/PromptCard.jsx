@@ -15,7 +15,7 @@ const PromptCard = ( { post , handlTagClick, handleEdit , handleDelete }) => {
         setTimeout(() => setIsCopied(false), 2000);
     };
 
-    const editAndDeleteCondition = session?.user.id && pathName === '/profile'
+   
     
   return (
     <div className='prompt_card'>
@@ -48,15 +48,22 @@ const PromptCard = ( { post , handlTagClick, handleEdit , handleDelete }) => {
         </div>
               <p className='text-sm text-grey-700 my-4'>{post.prompt}</p>
               <p className='text-sm blue_gradient cursor-pointer' onClick={() => handlTagClick && handlTagClick(post.tag)}>{post.tag}</p>
-
-         {editAndDeleteCondition && (
-            <div>   
-         
-         <p className='green_gradient text-sm cursor-pointer' onClick={handleEdit}>  Edit </p>
-         <p lassName='red_gradient text-sm cursor-pointer' onClick={handleDelete} > Delete </p>
-
-            </div>
-         )}
+              {session?.user.id === post.creator._id && pathName === "/profile" && (
+        <div className='mt-5 flex-center gap-4 border-t border-gray-100 pt-3'>
+          <p
+            className='font-inter text-sm green_gradient cursor-pointer'
+            onClick={handleEdit}
+          >
+            Edit
+          </p>
+          <p
+            className='font-inter text-sm orange_gradient cursor-pointer'
+            onClick={handleDelete}
+          >
+            Delete
+          </p>
+        </div>
+      )}
     </div>
   )
 }
