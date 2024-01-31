@@ -5,7 +5,8 @@ import { useEffect, useState } from "react"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import axios from "axios"
-const MyProfile = async () =>{
+
+const MyProfile =  () =>{
   const router = useRouter();
 
   const [userPosts , setUserPosts] = useState([]);
@@ -14,11 +15,12 @@ const MyProfile = async () =>{
 
 
   useEffect(() => {
-      async function fetchUserPosts (){
+     const  fetchUserPosts = async  () => {
            const response = await axios.get(`api/users/${session?.user.id}/posts`);
-           const data = response.json();
+           const data = response.data;
            setUserPosts(data);
-      }
+           console.log(data);
+      };
       
       if(session?.user.id) fetchUserPosts();
   } , []);
@@ -33,15 +35,14 @@ const MyProfile = async () =>{
     };
 
     return(
-        <div>
+        
            <Profile  
               name="My"
               desc ="Welcome to your personolized profile"
-              posts = {[]}
+              data = {userPosts}
               handleEdit
               handleDelete
            />
-        </div>
     )
 }
 
